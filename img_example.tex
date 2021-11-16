@@ -40,8 +40,9 @@
     \draw[->] (u2) -- (postboxes) node[midway,below,sloped] {Poll Chan 2};
     \draw[->] (u3) -- (postboxes) node[midway,above,sloped] {Poll Chan 2};
     
-    \path[->,color=hured] (postboxes.210) edge[bend right] node[right,below,sloped] {Chan 1} (u1);
-    \path[->,dashed] (postboxes.230) edge[bend right] node[right,below,sloped] {Chan 2} (u2);
-    \path[->,dashed] (postboxes.280) edge[bend right] node[right,below,sloped] {Chan 2} (u3);
+    %FONTAWESOME ICON used
+    \path[->,color=hured] (postboxes.210) edge[bend right] node[right,below,sloped] {\faEnvelope} (u1); 
+    \path[->,dashed] (postboxes.230) edge[bend right] node[right,below] {\faBan} (u2);
+    \path[->,dashed] (postboxes.280) edge[bend right] node[right,below] {\faBan} (u3);
     
 \end{tikzpicture}
