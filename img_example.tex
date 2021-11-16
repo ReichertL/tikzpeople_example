@@ -1,0 +1,47 @@
+\begin{tikzpicture}[
+    node distance=4cm,
+    cell/.style={rectangle,draw=black},
+    space/.style={minimum height=1.5em,matrix of nodes,row sep=-\pgflinewidth,column sep=-\pgflinewidth,column 1/.style={font=\ttfamily}},
+    text depth=0.5ex,
+    text height=2ex,
+    nodes in empty cells,
+  ]
+
+    %Actors
+    \node[alice,minimum width=1cm] (a) {Alice};
+    \node[bob,minimum width=1cm,below of=a] (u1) {Bob};
+    \node[charlie,female,minimum width=1cm,right of=u1] (u2) {Charlotte};
+    \node[dave,minimum width=1cm,right of=u2] (u3) {Dave};
+
+    \matrix (postboxes) [
+        %space,
+        right=2cm of a,
+        matrix of nodes,
+        column 1/.style={nodes={cell,minimum width=5em}},
+        column 2/.style={nodes={cell,minimum width=18em]}},
+        every even row/.style={row sep=3pt}
+    ]
+    {
+    |[draw]|$pk_{A}$ & |[draw]| $ $ \\
+    |[draw]|$pk_{B}$ & |[draw,fill=hured!20]|$E_{pk_{B}}(t_{e}) || t_{m} ||Sig_{sk_{HA}}(E_{pk_{B}}(t_e)||t_{m})$ \\
+    |[draw]|$pk_{C}$ & |[draw]| $ $ \\
+    |[draw]|$pk_{D}$ & |[draw]| $ $ \\
+     };
+     
+    \node[rotate=90,yshift=.3em] at (postboxes.170) (chan1) {Chan 1};
+    \node[rotate=90,yshift=.3em] at (postboxes.190) (chan2) {Chan 2};
+     
+    \node[above=0.25cm] at ($(postboxes-1-1)!0.5!(postboxes-1-2)$){\textbf{Postbox System}};
+
+    \draw[->] (a) -- (chan1) node[midway,below] {Write};
+    %\draw[->] (a) -- (postboxes.175) node[midway,below] {Write};
+    
+    \draw[->] (u1) -- (postboxes) node[near start,below,sloped] {Poll Chan 1};
+    \draw[->] (u2) -- (postboxes) node[midway,below,sloped] {Poll Chan 2};
+    \draw[->] (u3) -- (postboxes) node[midway,above,sloped] {Poll Chan 2};
+    
+    \path[->,color=hured] (postboxes.210) edge[bend right] node[right,below,sloped] {Chan 1} (u1);
+    \path[->,dashed] (postboxes.230) edge[bend right] node[right,below,sloped] {Chan 2} (u2);
+    \path[->,dashed] (postboxes.280) edge[bend right] node[right,below,sloped] {Chan 2} (u3);
+    
+\end{tikzpicture}
